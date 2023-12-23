@@ -19,3 +19,9 @@ func NewMixed(
 ) (Stack, error) {
 	return nil, ErrGVisorNotIncluded
 }
+
+func NewRouted(
+	options StackOptions,
+) (Stack, error) {
+	return nil, ErrGVisorNotIncluded
+}

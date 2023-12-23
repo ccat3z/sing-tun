@@ -64,6 +64,7 @@ type Options struct {
 	TableIndex               int
 	FileDescriptor           int
 	Logger                   logger.Logger
+	DNSAddress 				 netip.Addr
 
 	// No work for TCP, do not use.
 	_TXChecksumOffload bool

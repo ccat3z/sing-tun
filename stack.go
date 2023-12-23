@@ -3,6 +3,7 @@ package tun
 import (
 	"context"
 	"encoding/binary"
+	"io"
 	"net"
 	"net/netip"
 
@@ -16,6 +17,11 @@ type Stack interface {
 	Close() error
 }
 
+type RouteTun interface {
+	io.ReadWriteCloser
+	Prefix() netip.Prefix
+}
+
 type StackOptions struct {
 	Context                context.Context
 	Tun                    Tun
@@ -26,6 +32,7 @@ type StackOptions struct {
 	Logger                 logger.Logger
 	ForwarderBindInterface bool
 	InterfaceFinder        control.InterfaceFinder
+	RoutedTuns             []RouteTun
 }
 
 func NewStack(
@@ -45,6 +52,8 @@ func NewStack(
 		return NewMixed(options)
 	case "system":
 		return NewSystem(options)
+	case "routed":
+		return NewRouted(options)
 	default:
 		return nil, E.New("unknown stack: ", stack)
 	}
