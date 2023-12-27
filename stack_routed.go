@@ -207,7 +207,7 @@ func (s *Routed) processPacket(rawPacket []byte) (err error) {
 	}
 
 	for _, tun := range s.routeTuns {
-		if tun.Prefix().Contains(dest) {
+		if tun.Contains(dest) {
 			_, err = tun.Write(rawPacket)
 			return
 		}

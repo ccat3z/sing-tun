@@ -19,7 +19,7 @@ type Stack interface {
 
 type RouteTun interface {
 	io.ReadWriteCloser
-	Prefix() netip.Prefix
+	Contains(addr netip.Addr) bool
 }
 
 type StackOptions struct {
